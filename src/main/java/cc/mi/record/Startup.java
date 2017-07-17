@@ -7,7 +7,8 @@ import org.ini4j.Config;
 import org.ini4j.Ini;
 import org.ini4j.Profile.Section;
 
-import cc.mi.record.recordClient.RecordClient;
+import cc.mi.core.serverClient.ServerClient;
+import cc.mi.record.recordClient.RecordClientHandler;
 
 public class Startup {
 	private static final String RECORD_CLIENT = "recordClient";
@@ -24,7 +25,7 @@ public class Startup {
         	ini.load(url);
 
         	Section section = ini.get(RECORD_CLIENT);
-        	RecordClient.start(section.get(IP), Integer.parseInt(section.get(PORT)));
+        	ServerClient.start(section.get(IP), Integer.parseInt(section.get(PORT)), new RecordClientHandler());
         	
         } catch (IOException e) {
         	e.printStackTrace();
