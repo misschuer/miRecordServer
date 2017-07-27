@@ -1,39 +1,16 @@
 package cc.mi.record;
 
-import java.io.IOException;
-import java.net.URL;
-
-import org.ini4j.Config;
-import org.ini4j.Ini;
-import org.ini4j.Profile.Section;
-
-import cc.mi.core.serverClient.ServerClient;
-import cc.mi.record.recordClient.RecordClientHandler;
+import cc.mi.core.net.ClientCore;
+import cc.mi.record.config.ServerConfig;
+import cc.mi.record.net.RecordHandler;
 
 public class Startup {
-	private static final String RECORD_CLIENT = "recordClient";
-	private static final String IP = "ip";
-	private static final String PORT = "port";
-	
-	private static void loadConfig() throws NumberFormatException, Exception {
-		Config cfg = new Config();
-		URL url = Startup.class.getResource("/config.ini");
-		Ini ini = new Ini();
-        ini.setConfig(cfg);
-        try {
-        	// 加载配置文件  
-        	ini.load(url);
-
-        	Section section = ini.get(RECORD_CLIENT);
-        	ServerClient.start(section.get(IP), Integer.parseInt(section.get(PORT)), new RecordClientHandler());
-        	
-        } catch (IOException e) {
-        	e.printStackTrace();
-	    }  
+	private static void start() throws NumberFormatException, Exception {
+		ServerConfig.loadConfig();
+		ClientCore.start(ServerConfig.getIp(), ServerConfig.getPort(), new RecordHandler());
 	}
 
 	public static void main(String[] args) throws NumberFormatException, Exception {
-		loadConfig();
+		start();
 	}
-
 }
