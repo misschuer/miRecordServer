@@ -7,7 +7,7 @@ import cc.mi.record.net.RecordHandler;
 public class Startup {
 	private static void start() throws NumberFormatException, Exception {
 		ServerConfig.loadConfig();
-		ClientCore.start(ServerConfig.getIp(), ServerConfig.getPort(), new RecordHandler());
+		ClientCore.INSTANCE.start(ServerConfig.getCenterIp(), ServerConfig.getCenterPort(), new RecordHandler());
 	}
 
 	public static void main(String[] args) throws NumberFormatException, Exception {

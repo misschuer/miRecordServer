@@ -1,11 +1,13 @@
 package cc.mi.record.net;
 
-import cc.mi.core.coder.Coder;
+import cc.mi.core.coder.Packet;
+import cc.mi.core.handler.ChannelHandlerGenerator;
 import cc.mi.record.system.RecordSystemManager;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
-public class RecordHandler extends SimpleChannelInboundHandler<Coder> {
+public class RecordHandler extends SimpleChannelInboundHandler<Packet> implements ChannelHandlerGenerator {
 	
 	public void channelActive(final ChannelHandlerContext ctx) {
 		System.out.println("connect to center success");
@@ -18,7 +20,7 @@ public class RecordHandler extends SimpleChannelInboundHandler<Coder> {
 	}
 	
 	@Override
-	public void channelRead0(final ChannelHandlerContext ctx, final Coder coder) throws Exception {
+	public void channelRead0(final ChannelHandlerContext ctx, final Packet coder) throws Exception {
 		
 	}
 	
@@ -30,5 +32,10 @@ public class RecordHandler extends SimpleChannelInboundHandler<Coder> {
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable throwable) {
 		throwable.printStackTrace();
 		ctx.close();
+	}
+
+	@Override
+	public ChannelHandler newChannelHandler() {
+		return new RecordHandler();
 	}
 }

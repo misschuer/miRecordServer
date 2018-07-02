@@ -43,15 +43,15 @@ public class RecordSystemManager {
 	}
 	
 	public static void regToCenter() {
-		ServerRegIdentity identity = new ServerRegIdentity();
-		identity.setInternalDestFD(IdentityConst.IDENDITY_CENTER);
-		identity.setIdentity(IdentityConst.IDENDITY_RECORD);
-		submitTask(new SendToCenterTask(centerChannel, identity));
-		
-		ServerRegOpcode reg = new ServerRegOpcode();
-		reg.setInternalDestFD(IdentityConst.IDENDITY_CENTER);
-		reg.setOpcodes(opcodes);
-		submitTask(new SendToCenterTask(centerChannel, reg));
+//		ServerRegIdentity identity = new ServerRegIdentity();
+//		identity.setInternalDestFD(IdentityConst.SERVER_TYPE_CENTER);
+//		identity.setIdentity(IdentityConst.SERVER_TYPE_SCENE);
+//		submitTask(new SendToCenterTask(centerChannel, identity));
+//		
+//		ServerRegOpcode reg = new ServerRegOpcode();
+//		reg.setInternalDestFD(IdentityConst.SERVER_TYPE_CENTER);
+//		reg.setOpcodes(opcodes);
+//		submitTask(new SendToCenterTask(centerChannel, reg));
 		
 	}
 }

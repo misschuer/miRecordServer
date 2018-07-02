@@ -1,6 +1,5 @@
 package cc.mi.record.config;
 
-import java.io.IOException;
 import java.net.URL;
 
 import org.ini4j.Config;
@@ -10,9 +9,10 @@ import org.ini4j.Profile.Section;
 import cc.mi.core.constance.NetConst;
 
 public class ServerConfig {
-	private static final String RECORD_CLIENT = "recordClient";
-	private static String ip;
-	private static int port;
+	private static final String CENTER = "center";
+	
+	private static String center_ip;
+	private static int center_port;
 	
 	public static void loadConfig() throws NumberFormatException, Exception {
 		Config cfg = new Config();
@@ -23,19 +23,20 @@ public class ServerConfig {
         	// 加载配置文件  
         	ini.load(url);
 
-        	Section section = ini.get(RECORD_CLIENT);
-        	ip = section.get(NetConst.IP);
-        	port = Integer.parseInt(section.get(NetConst.PORT));
-        } catch (IOException e) {
+        	Section section2 = ini.get(CENTER);
+        	center_ip = section2.get(NetConst.IP);
+        	center_port = Integer.parseInt(section2.get(NetConst.PORT));
+        	
+        } catch (Throwable e) {
         	e.printStackTrace();
 	    }  
 	}
-
-	public static String getIp() {
-		return ip;
+	
+	public static String getCenterIp() {
+		return center_ip;
 	}
-
-	public static int getPort() {
-		return port;
+	
+	public static int getCenterPort() {
+		return center_port;
 	}
 }
