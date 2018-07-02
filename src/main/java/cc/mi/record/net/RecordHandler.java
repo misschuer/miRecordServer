@@ -1,8 +1,8 @@
 package cc.mi.record.net;
 
-import cc.mi.core.coder.Packet;
 import cc.mi.core.handler.ChannelHandlerGenerator;
-import cc.mi.record.system.RecordSystemManager;
+import cc.mi.core.packet.Packet;
+import cc.mi.record.server.RecordServerManager;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -10,13 +10,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 public class RecordHandler extends SimpleChannelInboundHandler<Packet> implements ChannelHandlerGenerator {
 	
 	public void channelActive(final ChannelHandlerContext ctx) {
-		System.out.println("connect to center success");
-		RecordSystemManager.setCenterChannel(ctx.channel());
-		RecordSystemManager.regToCenter();
-	}
-	
-	public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
-		
+		RecordServerManager.getInstance().onCenterConnected(ctx.channel());
 	}
 	
 	@Override
@@ -25,7 +19,7 @@ public class RecordHandler extends SimpleChannelInboundHandler<Packet> implement
 	}
 	
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		System.out.println("record client inactive");
+		RecordServerManager.getInstance().onCenterDisconnected(ctx.channel());
 		ctx.fireChannelInactive();
 	}
 
