@@ -18,7 +18,7 @@ import cc.mi.core.packet.Packet;
 public class RecordServerManager extends ServerManager {
 	static final CustomLogger logger = CustomLogger.getLogger(RecordServerManager.class);
 	
-	private static RecordServerManager instance;
+	private static RecordServerManager instance = new RecordServerManager();
 	
 	// 消息收到以后的回调
 	private static final Map<Integer, Handler> handlers = new HashMap<>();
@@ -38,9 +38,6 @@ public class RecordServerManager extends ServerManager {
 	}
 	
 	public static RecordServerManager getInstance() {
-		if (instance == null) {
-			instance = new RecordServerManager();
-		}
 		return instance;
 	}
 	
